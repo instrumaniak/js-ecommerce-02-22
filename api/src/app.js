@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const config = require("./config");
+const userRouter = require("./modules/user/user.router")
 
 mongoose
   .connect(config.MDB_URL)
@@ -11,9 +12,7 @@ mongoose
 const app = express();
 const PORT = 5000;
 
-app.get("/", (req, res) => {
-  res.json({ success: true, message: "Hello world!" });
-});
+app.use("/users", userRouter);
 
 app.listen(PORT, () => {
   console.log(`API server listening on port ${PORT}`);
