@@ -1,6 +1,7 @@
 require("dotenv").config();
 const path = require("path");
 const express = require("express");
+const cors = require("cors");
 const connectToDB = require("./db/connect");
 const userRouter = require("./modules/user/user.router");
 const productRouter = require("./modules/product/product.router");
@@ -10,6 +11,7 @@ connectToDB();
 const app = express();
 const PORT = 5000;
 
+app.use(cors());
 app.use(express.json());
 app.use(express.static(path.resolve(__dirname, "../public")));
 
