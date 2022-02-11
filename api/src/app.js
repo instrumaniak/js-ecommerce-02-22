@@ -1,4 +1,5 @@
 require("dotenv").config();
+const path = require("path");
 const express = require("express");
 const mongoose = require("mongoose");
 const config = require("./config");
@@ -13,13 +14,14 @@ mongoose
 const app = express();
 const PORT = 5000;
 
-app.use(express.json())
+app.use(express.json());
+app.use(express.static(path.resolve(__dirname, "../public")));
 
 app.use("/api/users", userRouter).use("/api/products", productRouter);
 
 app.use((req, res, next) => {
-  const err = new Error("path not found")
-  err.status = 404
+  const err = new Error("path not found");
+  err.status = 404;
   next(err);
 });
 
